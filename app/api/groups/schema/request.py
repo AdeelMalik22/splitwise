@@ -18,3 +18,9 @@ class RetrieveGroupRequestSchema(BaseModel):
 class AddUserInGroupRequestSchema(BaseModel):
     user_id: int
     group_id: int
+
+class RetrieveUserInGroupRequestSchema(BaseModel):
+    id:int
+    username:str
+    email:str
+    name:str

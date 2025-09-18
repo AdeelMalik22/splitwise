@@ -6,7 +6,7 @@ from sqlalchemy.orm.session import Session
 from .models import Groups, UsersGroups
 
 from app.api.groups.schema.request import CreateGroupRequestSchema, RetrieveGroupRequestSchema, \
-    AddUserInGroupRequestSchema
+    AddUserInGroupRequestSchema, RetrieveUserInGroupRequestSchema
 from app.utils.database_connections import get_db
 from ..expenses.model import Expenses
 from ..expenses.schema.request import GetExpenseRequestSchema
@@ -67,7 +67,7 @@ def add_user_in_group(request:AddUserInGroupRequestSchema,db:Session= Depends(ge
     db.commit()
     return {"status":"success", "message":"User added"}
 
-@router.get("/user/{group_id}")
+@router.get("/user/{group_id}",response_model=List[RetrieveUserInGroupRequestSchema])
 def get_user_by_user_id(group_id:int,db:Session= Depends(get_db)):
     groups_ids =db.query(UsersGroups).filter(UsersGroups.group_id == group_id ).all()
     group_user = []
